@@ -1,0 +1,8 @@
+<template>
+        <div>
+                <c-document-checklist-table field-set-name={fieldSetName} related-field-api-name={parentRelationShipName} record-id={recordId} onviewdocument={handleViewDocument} filter-conditions={filterConditions} height="200" width="100%"></c-document-checklist-table>
+        </div>
+        <template lwc:if={siteURL}>
+                <iframe src={siteURL} height="800" width="100%"></iframe>
+        </template>
+</template>

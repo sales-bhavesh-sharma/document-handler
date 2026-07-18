@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property
+                name="parentRelationShipName"
+                type="String"
+                label="Parent Relationship Name"
+                description="Pass the parent object relationship name to the component variable"/>
+            <property
+                name="filterConditions"
+                type="String"
+                label="Filter Conditions"
+                description="Pass the category on which records needs to be filtered"/>
+            <property
+                name="fieldSetName"
+                type="String"
+                label="Field Set Name"
+                description="Pass the field set name where fields are mapped"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,47 @@
+<template>
+  <template if:false={state.showRelatedList}>
+      <lightning-spinner
+          alternative-text="Loading..." variant="brand" size="medium">
+      </lightning-spinner>
+  </template>
+    <template if:true={state.showRelatedList}>
+        <lightning-layout class="slds-m-top_x-small">
+            <article class="slds-card lightning-card">
+                <div class="slds-card__header slds-grid slds-theme_shade">
+                  <header class="slds-media slds-media_center slds-has-flexi-truncate ">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name={state.iconName} size="small"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                      <h2 class="slds-card__header-title">
+                        <a class="slds-card__header-link" onclick={handleGotoRelatedList}>{state.title}</a>
+                      </h2>
+                    </div>
+                    <div class="slds-m-around_x-small">
+                      <lightning-button label="Upload File" title="Non-primary action" onclick={openFileUpload} class="slds-m-left_x-small"></lightning-button>
+                    </div>
+                  </header>
+                </div>
+                <template if:true={hasRecords}>
+                    <div class="datatable">
+                        <lightning-datatable class="related-list"
+                                            onrowaction={handleRowAction}
+                                            columns={state.columns}
+                                            data={state.records}
+                                            key-field="Id"
+                                            hide-checkbox-column="true"
+                                            resize-column-disabled="true">
+                        </lightning-datatable>   
+                    </div>
+                    <footer class="slds-card__footer">
+                        <a onclick={handleGotoRelatedList}>View All</a>
+                    </footer>                            
+                </template>
+              </article>                       
+        </lightning-layout>
+    </template>
+   <template if:true={openUpload}>
+      <c-document-upload record-id={state.recordId} onclosequickaction={closeFileUpload}></c-document-upload>
+   </template>
+                                    
+</template>

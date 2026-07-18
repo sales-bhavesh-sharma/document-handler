@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Category__c</fullName>
+    <description>Editable subcategory for user to enter the sub-category of the document. This is only available when sub-category is not copied from masters</description>
+    <label>Sub-Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Category__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Photo</fullName>
+                <default>false</default>
+                <label>Customer Photo</label>
+            </value>
+            <value>
+                <fullName>Additional Address Proof</fullName>
+                <default>false</default>
+                <label>Additional Address Proof</label>
+            </value>
+            <value>
+                <fullName>DOB Proof</fullName>
+                <default>false</default>
+                <label>DOB Proof</label>
+            </value>
+            <value>
+                <fullName>Name &amp; Address Undertaking</fullName>
+                <default>false</default>
+                <label>Name &amp; Address Undertaking</label>
+            </value>
+            <value>
+                <fullName>Bureau Report</fullName>
+                <default>false</default>
+                <label>Bureau Report</label>
+            </value>
+            <value>
+                <fullName>OHP</fullName>
+                <default>false</default>
+                <label>OHP</label>
+            </value>
+            <value>
+                <fullName>Attachment Letter</fullName>
+                <default>false</default>
+                <label>Attachment Letter</label>
+            </value>
+            <value>
+                <fullName>MLS Form</fullName>
+                <default>false</default>
+                <label>MLS Form</label>
+            </value>
+            <value>
+                <fullName>MAS Form</fullName>
+                <default>false</default>
+                <label>MAS Form</label>
+            </value>
+            <value>
+                <fullName>Signature Verification proof</fullName>
+                <default>false</default>
+                <label>Signature Verification proof</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+            <value>
+                <fullName>RC Copy</fullName>
+                <default>false</default>
+                <label>RC Copy</label>
+            </value>
+            <value>
+                <fullName>Consent</fullName>
+                <default>false</default>
+                <label>Consent</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Customer Photo</controllingFieldValue>
+            <valueName>Customer Photo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consent Documents</controllingFieldValue>
+            <valueName>Consent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Profile Documents</controllingFieldValue>
+            <valueName>Attachment Letter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Documents</controllingFieldValue>
+            <valueName>Others</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Insurance Documents</controllingFieldValue>
+            <valueName>MLS Form</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Insurance Documents</controllingFieldValue>
+            <valueName>MAS Form</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

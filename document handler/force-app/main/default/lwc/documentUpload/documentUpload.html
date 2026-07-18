@@ -1,0 +1,90 @@
+<template>
+<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+        <button class="slds-button slds-button_icon slds-modal__close" size="small" alternative-text="Indicates close" onclick={closeQuickAction}>
+            <lightning-icon icon-name="utility:close" size="small" alternative-text="Indicates close" ></lightning-icon>
+        </button>
+      <div class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate" tabindex="-1">Upload Documents</h1>
+      </div>
+      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        <template if:true={showSpinner}>
+            <lightning-spinner
+                alternative-text="Loading..." variant="brand" size="medium">
+            </lightning-spinner>
+        </template>
+        <template if:true={isHavingData}>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title={Document_Name_Label}>{Document_Name_Label}</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title={Status_Label}>{Status_Label}</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title={label.LWC_Action}>{label.LWC_Action}</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title={View_Document_Label}>{View_Document_Label}</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={documentChecklists} for:item="checklist" for:index="index">
+                        <tr key={checklist} class="slds-hint-parent">
+                            <td data-label={Document_Name_Label}>
+                                <div class="slds-truncate">
+                                  {checklist.Document_Master_Name}
+                                </div>
+                              </td>
+                            <td data-label={Status_Label}>
+                                <div class="slds-cell-wrap">{checklist.Status__c}</div>
+                            </td>
+                            <td class="" data-label={label.LWC_Action}>
+                                <template lwc:if={checklist.isInitialStage}>
+                                    <div class="slds-cell-wrap"><lightning-input type="file" data-id={index}
+                                        accept=".pdf, .jpeg, .png, .jpg"
+                                        multiple="false" variant = "label-hidden"
+                                        onchange={openfileUpload}></lightning-input>
+                                    </div>
+                                    <template if:true={checklist.filename}>
+                                        {checklist.filename}
+                                    </template>
+                                </template>
+                                <template lwc:elseif={checklist.isCompleted}>
+                                    <lightning-icon variant="brand" icon-name="action:check" alternative-text="Approved" title="Approved" size="x-small"></lightning-icon>
+                                </template>
+                                <template lwc:else>
+                                    <lightning-spinner
+                                        alternative-text="Loading..." variant="brand" size="x-small">
+                                    </lightning-spinner>
+                                </template>
+                            </td>
+                            <td data-label={View_Document_Label}>
+                                <div class="slds-cell-wrap">
+                                        <template if:true={checklist.View_Document__c}>
+                                            <lightning-formatted-url data-id={checklist} value={checklist.previewUrl} tooltip="Preview" label="Click Here"></lightning-formatted-url>
+                                     </template>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </template>
+            <template if:false={isHavingData}>
+                <div class="slds-text-heading_medium slds-align_absolute-center">
+                    {label.LWC_No_Deffered_Docment}
+                </div>
+            </template>
+      </div>
+      <div class="slds-modal__footer">
+        <lightning-button variant="brand" label={label.LWC_Submit} title="Submit" onclick={handleClick} class="slds-m-left_x-small" disabled={disableButton}></lightning-button>
+        <lightning-button variant="brand-outline" label={label.LWC_Close_Button} onclick={closeQuickAction} class="slds-m-left_x-small"></lightning-button>
+      </div>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

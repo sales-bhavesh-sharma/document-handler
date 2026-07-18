@@ -1,0 +1,205 @@
+<!--
+@description       : This VF Page is created to show base 64 string recieved as pdf using standard Object tag in HTML. We are showing spinner on load of page and once the javascript remoting
+gets the result from apex controller we are disabling it.
+@author            : Rohit Goel
+@group             : 
+@last modified on  : 05-03-2023
+@last modified by  : Nikhil
+-->
+<apex:page lightningStylesheets="true" id="PDFPage" controller="DocumentViewerController" showHeader="false" sideBar="false">
+    <apex:slds ></apex:slds>
+    <style>
+        img{
+        	margin: auto !important;
+        }
+        .formatpage {
+          display: inline-block;
+          width: 100vw;
+          height: 100vh;
+        }
+
+        .button-container {
+           position: fixed;
+           display: flex;
+           z-index: 10;
+           align-items: center;
+           justify-content: center;
+           background-color: snow;
+           width:100%
+        }
+    </style>
+    
+    <div id="spinner" class="slds-hidden slds-spinner_container">
+        <div class="demo-only demo--inverse " style="height:30%;position:relative ">
+            <div role="status " class="slds-spinner slds-spinner_medium slds-spinner_brand ">
+                <span class="slds-assistive-text ">Loading</span>
+                <div class="slds-spinner__dot-a "></div>
+                <div class="slds-spinner__dot-b "></div>
+            </div>
+        </div>
+    </div>
+     <body id="pdf" style="width:100%;height:100%">
+            <div id="errorMessage" style="font-size: 30px; text-align: center;padding-top: 10px;color: red;">
+            </div>  
+            <div id="navButton" class="button-container slds-p-around_medium slds-hidden">
+                <button class="slds-button slds-button_brand " id="zoomOut">&#128270;-</button>
+                <button class="slds-button slds-button_brand " id="zoomIn">&#128270;+</button>
+                <button class="slds-button slds-button_brand " id="rotate">&#8635;</button>
+            </div>
+            <div id="imgsection"  style="text-align:center;display:none;padding-top:100px">
+            <div style="text-align:center;">
+                <img alt="documnets" style="width:250px;" src=""/>
+             </div>
+            </div>
+            <object id="objId">  
+            </object> 
+    </body>
+    
+    <script type="text/javascript">
+
+        // ZoomIn ZoomOut And Rotate Logic start
+        var imgHeight = 250 ;
+        var imgRotateDeg ;
+        console.log('imgHeight' + imgHeight);
+        document.getElementById("zoomIn").addEventListener("click", function() {
+                imgHeight = (''+imgHeight).replace('px','');
+                if(imgHeight >= 1500){
+                    return false;
+                }else{
+                    imgHeight = ( Number(imgHeight) + 100 ) + 'px';
+                }
+                document.querySelector("img").style.width =  imgHeight ;  
+        });
+        document.getElementById("zoomOut").addEventListener("click", function() {
+                imgHeight = (''+imgHeight).replace('px','');
+                console.log('imgHeight : ',imgHeight);
+                if(imgHeight <= 100){
+                    return false;
+                }else{
+                    imgHeight = ( Number(imgHeight) - 100 ) + 'px';
+                }
+                document.querySelector("img").style.width =  imgHeight ;
+        });
+
+        document.getElementById("rotate").addEventListener("click", function() {
+               
+                imgRotateDeg = imgRotateDeg ? (imgRotateDeg + 90) : 90;
+                document.querySelector("img").style.transform = 'rotate('+ imgRotateDeg+'deg)';
+        });
+        // ZoomIn ZoomOut and Rotate Logic end
+        
+        
+        function base64toBlob(data, contentType) {
+            // Cut the prefix `data:application/pdf;base64` from the raw base 64
+    
+            const bytes = atob(data);
+            let length = bytes.length;
+            let out = new Uint8Array(length);
+        	let retryCount = 0;
+            while (length--) {
+                out[length] = bytes.charCodeAt(length);
+            }
+            return new Blob([out], { type: contentType, toolbar : 0 });
+        };
+        window.onload = function () {
+            var html1 = '';
+            // Getting the url from browser
+            var url_string = window.location.href;
+            // using URL object of javascript to get parameters passed to VF Page as we cant use getParameters function of Apex class when VF is embedded inside LWC
+            var url = new URL(url_string);
+            var recordId = url.searchParams.get("recordId");
+            var formFactor = url.searchParams.get("FORM_FACTOR");
+            document.getElementById("spinner").classList.remove('slds-hidden');
+            var isSF1 = typeof sforce === 'undefined' ? false:true;
+            
+            // Function to hide buttons
+            function showButtons() {
+                    document.getElementById("navButton").classList.remove('slds-hidden');
+                }
+           // Function to API callout
+            function getDoCallout(){
+                 Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.DocumentViewerController.doCallout}', recordId,
+                    function (result, event) 
+                    {
+                        console.log('result M', result);
+                        console.log('event', event);
+                        if (event.status) 
+                        {
+                            if(result.errorMessage){
+                                if(event.statusCode == 429 && retryCount <= 3){
+                                    alert('statusCode : '+event.statusCode+' automatic retry in 60 seconds');
+                                    setTimeout(function() {
+                                    getDoCallout();
+                                    retryCount+=1;
+                                    }, 60000); // 60 seconds
+                                }
+                                document.getElementById("objId").remove();
+                                var div = document.getElementById('errorMessage');
+                                div.textContent = result.errorMessage;
+                            }else{
+                                console.log('errorMsg else');
+                                document.getElementById("errorMessage").remove();
+                                const blob = base64toBlob(result.base64, result.contentType);
+                                if(result.contentType.includes('image')){
+                                    console.log('image');
+                                    showButtons();
+                                    document.querySelector("img").src = 'data:'+ result.contentType+';base64, ' + result.base64;
+                                    document.getElementById("imgsection").style.display = 'block';
+                                }else{
+                                    console.log('PDF');
+                                document.getElementById("objId").style.height='100vh';
+                                document.getElementById("objId").style.width='100vw';
+                                const url = URL.createObjectURL(blob);
+                                let div = document.getElementById("objId");
+                                    div.data = url;//+"#toolbar=0";
+                                
+                                }
+                            }
+                            }else{
+                                if(event.statusCode == 429 && retryCount <= 3){
+                                    alert('statusCode : '+event.statusCode+' automatic retry in 60 seconds');
+                                    setTimeout(function() {
+                                    getDoCallout();
+                                        retryCount+=1;
+                                }, 60000); // 60 seconds
+                                }else{
+                                document.getElementById("objId")?.remove();
+                                    var div = document.getElementById('errorMessage');
+                                    div.textContent = event.message;
+                                }
+                            }
+                            document.getElementById("spinner").classList.add('slds-hidden');
+                    }
+                )
+            }
+            
+            if(isSF1 && formFactor !== 'Large'){
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.DocumentViewerController.getDocument}', recordId,
+                    function (result, event) {
+                        console.log('result', result);
+                        if (event.status) {
+                            if(result.errorMessage){
+                                document.getElementById("objId").remove();
+                                var div = document.getElementById('errorMessage');
+                                div.textContent = result.errorMessage;
+                            }else{
+                                document.getElementById("errorMessage").remove();
+                                if(sforce){
+                                	sforce.one.navigateToSObject(result.contentDocumentId);
+                                    sforce.one.back(true);
+                                }
+                            }
+                            document.getElementById("spinner").classList.add('slds-hidden');
+                        }
+                     }
+               )
+            }
+            else{
+                console.log('else');
+                  getDoCallout();
+            }
+        }
+    </script>
+</apex:page>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Add_Review</fullName>
+        <categories>LWC Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Review</shortDescription>
+        <value>Add Review</value>
+    </labels>
+    <labels>
+        <fullName>Details</fullName>
+        <categories>LWC Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Details</shortDescription>
+        <value>Details</value>
+    </labels>
+    <labels>
+        <fullName>Full_Details</fullName>
+        <categories>LWC Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Full Details</shortDescription>
+        <value>Full Details</value>
+    </labels>
+    <labels>
+        <fullName>LWC_Action</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LWC_Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>LWC_Close_Button</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LWC_Close_Button</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>LWC_Modal_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LWC_Modal_Name</shortDescription>
+        <value>Document Split View</value>
+    </labels>
+    <labels>
+        <fullName>LWC_No_Deffered_Docment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LWC_No_Deffered_Docment</shortDescription>
+        <value>No Document Is Available To Upload</value>
+    </labels>
+    <labels>
+        <fullName>LWC_PENDING_DOCUMENTS_WARNING</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LWC_PENDING_DOCUMENTS_WARNING</shortDescription>
+        <value>Upload the Pending Documents or Delete the unnecessary Row(s)</value>
+    </labels>
+    <labels>
+        <fullName>LWC_Submit_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LWC_Submit_Button</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>LWC_Upload_Document_Modal_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LWC_Upload_Document_Modal_Name</shortDescription>
+        <value>Upload Document</value>
+    </labels>
+    <labels>
+        <fullName>LWC_Upload_File_Modal_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LWC_Upload_File_Modal_Name</shortDescription>
+        <value>Upload Files</value>
+    </labels>
+    <labels>
+        <fullName>Please_select_a_boat</fullName>
+        <categories>LWC Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Please select a boat</shortDescription>
+        <value>Please select a boat :)</value>
+    </labels>
+    <labels>
+        <fullName>Reviews</fullName>
+        <categories>LWC Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Reviews</shortDescription>
+        <value>Reviews</value>
+    </labels>
+</CustomLabels>

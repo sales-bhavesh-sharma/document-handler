@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <description>Document category - used primarily for reporting</description>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Photo</fullName>
+                <default>false</default>
+                <label>Customer Photo</label>
+            </value>
+            <value>
+                <fullName>Consent Documents</fullName>
+                <default>false</default>
+                <label>Consent Documents</label>
+            </value>
+            <value>
+                <fullName>Business Proof Documents</fullName>
+                <default>false</default>
+                <label>Business Proof Documents</label>
+            </value>
+            <value>
+                <fullName>Customer Profile Documents</fullName>
+                <default>false</default>
+                <label>Customer Profile Documents</label>
+            </value>
+            <value>
+                <fullName>FD Documents</fullName>
+                <default>false</default>
+                <label>FD Documents</label>
+            </value>
+            <value>
+                <fullName>Other Documents</fullName>
+                <default>false</default>
+                <label>Other Documents</label>
+            </value>
+            <value>
+                <fullName>Insurance Documents</fullName>
+                <default>false</default>
+                <label>Insurance Documents</label>
+            </value>
+            <value>
+                <fullName>Property Documents</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Property Documents</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
